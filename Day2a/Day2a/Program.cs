@@ -15,7 +15,7 @@ namespace Day2a
         static void Main(string[] args)
         {
             // Specify file path
-            StreamReader sr = new StreamReader(@"C:\Users\Liz\Documents\GitHub\Advent-of-Code-2017\Day2a\Day2a\Test1.txt");
+            StreamReader sr = new StreamReader(@"C:\Users\Liz\Documents\GitHub\Advent-of-Code-2017\Day2a\Day2a.txt");
 
             // File path for test case: C:\Users\Liz\Documents\GitHub\Advent-of-Code-2017\Day2a\Day2a\Test1.txt
             // File path for Day2a case: C:\Users\Liz\Documents\GitHub\Advent-of-Code-2017\Day2a\Day2a.txt
@@ -38,36 +38,25 @@ namespace Day2a
                 sr.Close();
             }
 
-            // Count the number of rows of data
-            LinesCount();
-            rowCount++;
+            // Perform calculation
+            string[] stringSeparator = new string[] {"\n"};
+            string[] result;
+            int checksum = 0;
 
-            // Convert string to array of integers
-            int[] myNumbers = new int[mySpreadsheet.Length];
+            result = mySpreadsheet.Split(stringSeparator, StringSplitOptions.None);
 
-            for (int i = 0; i < mySpreadsheet.Length; i++)
+            foreach (string line in result)
             {
-                myNumbers[i] = mySpreadsheet[i];
-            }
+                var row = line.Split(null as string[],StringSplitOptions.RemoveEmptyEntries);
+                // default split on white space using null as string[]
+                int[] rowValues = Array.ConvertAll(row,s => int.Parse(s));
 
-            for (int i = 0; i < rowCount; i++)
-            {
-
+                // find the difference between the maximum and minimum
+                int rowDifference = rowValues.Max() - rowValues.Min();
+                checksum = checksum + rowDifference;
             }
-           
+            Console.WriteLine(checksum.ToString());
             Console.ReadLine();
-        }
-
-        static long LinesCount()
-        {
-            // Check how many lines there are from new line '/n'
-
-            int lineStart = -1;
-            while ((lineStart = mySpreadsheet.IndexOf('\n', lineStart+1)) != -1)
-            {
-                rowCount++;
-            }
-            return rowCount;
         }
     }
 }
