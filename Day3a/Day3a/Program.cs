@@ -17,49 +17,81 @@ namespace Day3a
             string inputString = Console.ReadLine();
 
             // Convert to integer value
-            int inputInteger = int.Parse(inputString);
+            int inputNumber = int.Parse(inputString);
 
             // Generate the spiral
-            int accessPort = 1;
-            int instruction = inputInteger - accessPort;
+            int stepCount = 1; // start at 1
+            int currentNumber = 1; // start at 1
+            bool shouldStepsIncrease = true;
 
-            // Values to print
-            //int[] myNumbers = new int[inputInteger];
-            //int count = 0;
-            bool isAddition = true;
-            // isAddition = (instruction % 2 != 0);
+            // Position co-ordinates
+            // Initialise at the origin (0,0)
             int x = 0;
             int y = 0;
 
-            // for displaying parameters
-            //for (int i = 0; i < inputInteger; i++)
-            //{
-            //    count++;
-            //    myNumbers[i] = count;
-            //}
+            // directionStep values and meaning
+            int directionStep = 0;
+            // directionStep = 0 == Right
+            // directionStep = 1 == Up
+            // directionStep = 2 == Left
+            // directionStep = 3 == Down
 
-            for (int j = 0; j < instruction; j++)
+
+            while (currentNumber < inputNumber)
             {
-                if (isAddition)
+                // Increment the current number
+                currentNumber++;
+
+                for (int i = 0; i < stepCount; i++)
                 {
-                    y = (y + 1);
-                    Console.WriteLine("Co-ordinate: ({0},{1})", x.ToString(), y.ToString());
-                    Console.WriteLine("in addition true case");
-                }
-                else
-                {
-                    y = (y - 1);
-                    x = (x - 1);
-                    isAddition = true;
-                    Console.WriteLine("in addition false case");
+                    if (currentNumber == inputNumber)
+                    {
+                        break;
+                    }
+
+                    // Take a step based on directionStep value
+                    if (directionStep ==0)
+                    {
+                        y++;
+                    }
+
+                    if (directionStep ==1)
+                    {
+                        x++;
+                    }
+
+                    if (directionStep == 2)
+                    {
+                        y--;
+                    }
+
+                    if (directionStep ==3)
+                    {
+                        x--;
+                    }
+
+                    shouldStepsIncrease = !shouldStepsIncrease;
+
+                    if (shouldStepsIncrease)
+                    {
+                        stepCount++;
+                    }
+
+                    // Print co-ordinates
+                    Console.WriteLine("({0},{1})", x, y);
+
+                    // Increase direction anti-clockwise for the next step
+                    directionStep++;
+                    // Check not out of bounds by mod 4
+                    directionStep = directionStep % 4;
                 }
             }
 
-            // Output result of steps
-            int numberSteps = 0;
-            numberSteps = Math.Abs(x + y);
+            // Get co-ordinates x and y and output number of steps as Manhattan distance
+            int numberStepsToAccessPoint = 0;
+            numberStepsToAccessPoint = Math.Abs(x + y);
 
-            Console.WriteLine(numberSteps.ToString());
+            Console.WriteLine(numberStepsToAccessPoint.ToString());
 
             Console.ReadLine();
         }
