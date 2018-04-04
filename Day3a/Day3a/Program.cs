@@ -70,21 +70,22 @@ namespace Day3a
                         x--;
                     }
 
-                    shouldStepsIncrease = !shouldStepsIncrease;
-
-                    if (shouldStepsIncrease)
-                    {
-                        stepCount++;
-                    }
-
-                    // Print co-ordinates
-                    Console.WriteLine("({0},{1})", x, y);
-
-                    // Increase direction anti-clockwise for the next step
-                    directionStep++;
-                    // Check not out of bounds by mod 4
-                    directionStep = directionStep % 4;
                 }
+
+                shouldStepsIncrease = !shouldStepsIncrease;
+
+                if (shouldStepsIncrease)
+                {
+                    stepCount++;
+                }
+
+                // Print co-ordinates
+                Console.WriteLine("({0},{1})", x, y);
+
+                // Increase direction anti-clockwise for the next step
+                directionStep++;
+                // Check not out of bounds by mod 4
+                directionStep = directionStep % 4;
             }
 
             // Get co-ordinates x and y and output number of steps as Manhattan distance
