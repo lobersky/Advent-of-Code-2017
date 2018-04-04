@@ -11,40 +11,43 @@ namespace Day4a
         static void Main(string[] args)
         {
             // Read the file content into a string array, each element is one line of file
-            string[] passPhrasesList = System.IO.File.ReadAllLines(@"C:\Users\Liz\Documents\GitHub\Advent-of-Code-2017\Day4a\Day4a\Test.txt");
-            string[] result;
-            string currentWord = "";
-            string[] stringSeparator = new string[] {" "};
-            int validPassPhraseCount = 0;
-            int wordCounter = 0;
+            string[] passPhrasesList = System.IO.File.ReadAllLines(@"C:\Users\Liz\Documents\GitHub\Advent-of-Code-2017\Day4a\Day4a\Input.txt");
+            int validCount = 0;
 
-            // Investigate the file contents by line
-
-            foreach (string lineOfList in passPhrasesList)
+            // Investigate the file contents by each passPhrase (line-by-line)
+            foreach (string passPhrase in passPhrasesList)
             {
-                result = lineOfList.Split(stringSeparator, StringSplitOptions.None);
-
-                for (int i = 0; i < result.Length; i++)
+                if (isValidPassPhrase(passPhrase))
                 {
-                    currentWord = result[i];
+                    validCount++;
+                }
+            }
+            Console.WriteLine("Number of valid pass phrases is: {0}", validCount.ToString());
+            Console.ReadLine();
+        }
 
-                    for (int j = 0; j < result.Length-i-1; j++)
+        // Helper method isValidPassPhrase
+        private static bool isValidPassPhrase(string passPhrase)
+        {
+            string[] stringSeparator = new string[] { " " };
+            string[] words = passPhrase.Split(stringSeparator, StringSplitOptions.None);
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                for (int j = i+1; j < words.Length; j++)
+                {
+                    if (i==j)
                     {
-                        if ((currentWord != result[j + 1]) && (j + 1 <= result.Length))
-                        {
-                            wordCounter++;
+                        continue;
+                    }
 
-                            if (wordCounter == result.Length-1)
-                            {
-                                validPassPhraseCount++;
-                                Console.WriteLine(validPassPhraseCount.ToString());
-                            }
-                        }
+                    if (words[i] == words[j])
+                    {
+                        return false;
                     }
                 }
             }
-            Console.WriteLine(validPassPhraseCount.ToString());
-            Console.ReadLine();
+            return true;
         }
     }
 }
