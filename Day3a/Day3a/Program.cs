@@ -39,15 +39,12 @@ namespace Day3a
 
             while (currentNumber < inputNumber)
             {
-                // Increment the current number
-                currentNumber++;
+                
 
                 for (int i = 0; i < stepCount; i++)
                 {
-                    if (currentNumber == inputNumber)
-                    {
-                        break;
-                    }
+                    // Increment the current number
+                    currentNumber++;
 
                     // Take a step based on directionStep value
                     if (directionStep ==0)
@@ -70,6 +67,10 @@ namespace Day3a
                         x--;
                     }
 
+                    if (currentNumber == inputNumber)
+                    {
+                        break;
+                    }
                 }
 
                 shouldStepsIncrease = !shouldStepsIncrease;
@@ -90,7 +91,7 @@ namespace Day3a
 
             // Get co-ordinates x and y and output number of steps as Manhattan distance
             int numberStepsToAccessPoint = 0;
-            numberStepsToAccessPoint = Math.Abs(x + y);
+            numberStepsToAccessPoint = Math.Abs(x) + Math.Abs(y);
 
             Console.WriteLine(numberStepsToAccessPoint.ToString());
 
