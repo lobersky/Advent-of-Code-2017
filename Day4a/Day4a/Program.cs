@@ -24,32 +24,25 @@ namespace Day4a
             {
                 result = lineOfList.Split(stringSeparator, StringSplitOptions.None);
 
-                for (int i = 0; i < result.Length-1; i++)
+                for (int i = 0; i < result.Length; i++)
                 {
                     currentWord = result[i];
 
-                    for (int j = 0; j < result.Length-1; j++)
+                    for (int j = 0; j < result.Length-i-1; j++)
                     {
                         if ((currentWord != result[j + 1]) && (j + 1 <= result.Length))
                         {
                             wordCounter++;
-                        }
 
-                        else
-                        {
-                            Console.WriteLine("Passphrase is not valid");
-                            break;
+                            if (wordCounter == result.Length-1)
+                            {
+                                validPassPhraseCount++;
+                                Console.WriteLine(validPassPhraseCount.ToString());
+                            }
                         }
                     }
-                    
                 }
-
-                if (wordCounter == result.Length)
-                {
-                    validPassPhraseCount++;
-                }      
             }
-            
             Console.WriteLine(validPassPhraseCount.ToString());
             Console.ReadLine();
         }
